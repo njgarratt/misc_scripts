@@ -1,0 +1,1 @@
+cat Account_Configuration.csv | sed 's/^URL_https\?:\/\/\([^\/:]*\):\?[0-9]*\/.*$/\0,\1/' | awk -F',' '{if (! match($3, "([0-9]+\.)\+\.[0-9]+") && $3 != "") {CMD="dig " $3 " +short"; CMD | getline IP} else {IP=$3}; print $0 "," IP}' > Account_Configuration_resolved.csv
